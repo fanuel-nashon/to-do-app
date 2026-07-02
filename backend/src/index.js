@@ -15,7 +15,9 @@ app.use(cors ({
 })); //
 
 // registering routes
-app.use('');
+app.use('api/tasks', require('./routes/taskRt'));
+app.use('api/users', require('./routes/userRt'));
+
 
 // health check
 app.get('/health', (req, res)=> {
