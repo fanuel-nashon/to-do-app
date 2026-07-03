@@ -3,7 +3,7 @@ const Task = require('../models/task');
 const taskController = {
     async getAllTasks(req, res) {
         try {
-            const tasks = await Task.findAll(req.user.id);
+            const tasks = await Task.findAll(req.query.user_id);
             res.json({
                 success: true,
                 data: tasks
