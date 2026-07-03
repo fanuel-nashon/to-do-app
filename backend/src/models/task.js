@@ -18,5 +18,16 @@ const Task = {
             [name, creation_date, due_date, completion_date]
         );
         return result.rows[0];
+    },
+    
+    // find a task by its id
+    async findById(id){
+        const result = await db.query(
+            'SELECT * FROM tasks WHERE id = $1',
+            [id]
+        );
+        return result.rows[0];
     }
 }
+
+module.exports = Task;
