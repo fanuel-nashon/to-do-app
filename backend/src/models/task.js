@@ -6,13 +6,13 @@ const Task = {
             'SELECT * FROM tasks WHERE user_id = $1',
             [id]
         );
-        return result.rows[0];
+        return result.rows;
     },
 
     async create(name, creation_date, due_date, completion_date){
         const result = await db.query(
             `INSERT INTO tasks (name, creation_date, due_date, completion_date)
-             VALUES($1,$2,$3)
+             VALUES($1,$2,$3,$4)
              RETURNING *
             `,
             [name, creation_date, due_date, completion_date]

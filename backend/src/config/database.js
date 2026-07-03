@@ -11,9 +11,12 @@ const pool = new Pool ({
 // testing the connection
 pool.connect((err,client,release)=> {
     if(err){
-        console.err('DB connection failed:', err.message);
+        console.error('DB connection failed:', err.message);
     }
     else {
         console.log('DB connected successfully');
+        release();
     }
 });
+
+module.exports = pool;
