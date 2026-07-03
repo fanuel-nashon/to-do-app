@@ -41,8 +41,8 @@ const userController={
 
     async createUser(req, res){
         try{
-            const hashedPassword = await hashPassword(req.params.password);
-            const {name, email, hashedPassword} = req.params;
+            const {name, email, hashedPassword} = req.body;
+            const hashedPassword = await hashPassword(password)
             const user = await User.create(name, email, hashedPassword);
             res.json({
                 success: true,
