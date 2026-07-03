@@ -6,7 +6,7 @@ const cors = require('cors'); // import cors - allows react app to talk to node
 
 const app = express(); // creating an express app
 
-const port = process.env.PORT || 3001; // setting up running port
+const PORT = process.env.PORT || 3001; // setting up running port
 
 app.use(express.json()); // parsing json requests
 
@@ -15,8 +15,8 @@ app.use(cors ({
 })); //
 
 // registering routes
-app.use('api/tasks', require('./routes/taskRt'));
-app.use('api/users', require('./routes/userRt'));
+app.use('/api/tasks', require('./routes/taskRt'));
+app.use('/api/users', require('./routes/userRt'));
 
 
 // health check
