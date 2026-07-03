@@ -1,4 +1,4 @@
-const Task = require('../models/taskModel');
+const Task = require('../models/task');
 
 const taskController = {
     async getAllTasks(req, res) {
@@ -43,8 +43,8 @@ const taskController = {
 
     async createTask(req, res){
         try {
-            const {name, creation_date, due_date, completion_date} = req.params;
-            const task = await Task.createTask(req.params);
+            const {name, creation_date, due_date, completion_date} = req.body;
+            const task = await Task.create(name, creation_date, due_date, completion_date);
             res.json({
                 success: true,
                 data: task
