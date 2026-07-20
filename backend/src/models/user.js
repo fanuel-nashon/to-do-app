@@ -25,6 +25,14 @@ const User = {
             [name, email, password]
         );
         return result.rows[0];
+    },
+
+    async findByEmail(email) {
+        const result = await db.query(
+            `SELECT * FROM users WHERE email = $1`,
+            [email]
+        );
+        return result.rows[0] || null;
     }
 };
 

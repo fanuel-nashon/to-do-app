@@ -3,7 +3,7 @@ const Task = require('../models/task');
 const taskController = {
     async getAllTasks(req, res) {
         try {
-            const tasks = await Task.findAll(req.query.user_id);
+            const tasks = await Task.findAll(req.user.id);
             res.json({
                 success: true,
                 data: tasks
@@ -44,7 +44,7 @@ const taskController = {
     async createTask(req, res){
         try {
             const {name, creation_date, due_date, completion_date} = req.body;
-            const task = await Task.create(name, creation_date, due_date, completion_date);
+            const task = await Task.create(req.user.id,name, creation_date, due_date, completion_date);
             res.json({
                 success: true,
                 data: task

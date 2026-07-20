@@ -11,11 +11,11 @@ const Task = {
 
     async create(name, creation_date, due_date, completion_date){
         const result = await db.query(
-            `INSERT INTO tasks (name, creation_date, due_date, completion_date)
+            `INSERT INTO tasks (user_id, name, creation_date, due_date, completion_date)
              VALUES($1,$2,$3,$4)
              RETURNING *
             `,
-            [name, creation_date, due_date, completion_date]
+            [user_id, name, creation_date, due_date, completion_date]
         );
         return result.rows[0];
     },
