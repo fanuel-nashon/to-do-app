@@ -29,5 +29,5 @@ app.get('/health', (req, res)=> {
 });
 
 app.listen(PORT, ()=> {
-    console.log(`Server monitor API running on http://localhost:${PORT}`);
+    console.log(`To do App API running on http://localhost:${PORT}`);
 });
