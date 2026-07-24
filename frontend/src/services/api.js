@@ -5,5 +5,5 @@ const api = axios.create({
     timeout:    10000,
 });
 
-export const register = () => api.post('/register');
+export const register = (name,email,password) => api.post('/auth/register', {name,email,password});
 

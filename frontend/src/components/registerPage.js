@@ -4,15 +4,31 @@ import { register } from "../services/api";
 
 function RegisterForm(){
 
-    const [name, setName]           =   useState('');
-    const [email, setEmail]         =   useState('');
-    const [password, setPassword]   =   useState(''); 
+    const [name, setName]                   =   useState('');
+    const [email, setEmail]                 =   useState('');
+    const [password, setPassword]           =   useState(''); 
+    const [error, setError]                 =   useState(null);
+    const [success, setSuccess]             =   useState();
+    const [isSubmitting, setIsSubmitting]   =   useState();
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await register(name, email, password);
-        const token = response.data.data.token;
-        localStorage.setItem('token', token);
+        setError(null);
+        setSuccess(false);
+        setIsSubmitting(true);
+        try{
+            const response = await register(name, email, password);
+            const token = response.data.data.token;
+            localStorage.setItem('token', token);
+            setSuccess(true);
+            setName('');
+            setEmail('');
+            setPassword('');
+        } catch(err) {
+            setError(err.response?.data?.message || 'Registration failed');
+        } finally {
+            setIsSubmitting(false);
+        }
     };  
 
     return (
@@ -59,7 +75,11 @@ function RegisterForm(){
                     required 
                 />
                 <br /><br />
-                <button type="submit"> Register </button>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {success && <p style={{ color: 'green' }}>Registerd successfully!</p>}
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Registering...' : 'Register'}
+                </button>
             </form>
         </>
     );
