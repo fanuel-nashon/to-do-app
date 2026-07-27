@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function LoginForm(){
 
+    const navigate = useNavigate();
+
     const [email, setEmail]                 =   useState('');
     const [password, setPassword]           =   useState('');
     const [error, setError]                 =   useState('');
@@ -64,7 +66,7 @@ function LoginForm(){
                 {error && <p style={{ color:'red' }}>{error}</p>}
                 {success && <p style={{ color: 'green' }}>Login successful</p>}
                 <button type="submit" disabled={submitting}>
-                    {isSubmitting ? 'Logging ...' : 'Login'}
+                    {submitting ? 'Logging ...' : 'Login'}
                 </button>
             </form>
         </>

@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 function WelcomePage(){
+
+    const navigate = useNavigate();
     return(
         <>
             <button onClick={()=>navigate("/login")} >
