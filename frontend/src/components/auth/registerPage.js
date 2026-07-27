@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from "../services/api";
+import { register } from "../../services/api";
 
 
 function RegisterForm(){
@@ -9,7 +9,7 @@ function RegisterForm(){
     const [password, setPassword]           =   useState(''); 
     const [error, setError]                 =   useState(null);
     const [success, setSuccess]             =   useState();
-    const [isSubmitting, setIsSubmitting]   =   useState();
+    const [isSubmitting, setIsSubmitting]   =   useState(false);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
