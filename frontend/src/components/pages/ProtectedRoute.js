@@ -6,7 +6,6 @@ function ProtectedRoute({ children }) {
     const token = localStorage.getItem('token');
 
     if(!token){
-        navigate('/login');
         return <Navigate to={"/login"} />
     }
 
@@ -14,4 +13,4 @@ function ProtectedRoute({ children }) {
 
 }
 
-export default {ProtectedRoute};
+export default ProtectedRoute;
