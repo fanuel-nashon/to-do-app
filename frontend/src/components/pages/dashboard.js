@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard(){
     const navigate  = useNavigate();  
-    const [error, setError] = useState(false) 
+    const [error, setError] = useState(null); 
 
     const token     = localStorage.getItem('token');
     let payload     = {};
@@ -20,8 +20,7 @@ function Dashboard(){
         navigate("/login");
     }
 
-    const handleLogout  = async (e) => {
-        e.preventDefault();
+    const handleLogout  =  () => {
         try{
             localStorage.removeItem('token');
             navigate('/login');
@@ -33,14 +32,10 @@ function Dashboard(){
     return(
         <>
             <p>Welcome {payload.name}</p>
-            <form   id="logoutForm"
-                    onSubmit={handleLogout}
-            >
-                <button type="submit">
+                <button onClick={handleLogout} type="submit">
                     Logout
                 </button>
                 {error && <p style={{color: 'red' }}> {error}</p>}
-            </form>
         </>
     );
 }
