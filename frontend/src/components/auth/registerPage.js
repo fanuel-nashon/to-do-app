@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { register } from "../../services/api";
-
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm(){
 
@@ -24,6 +24,7 @@ function RegisterForm(){
             setName('');
             setEmail('');
             setPassword('');
+            navigate("/dashboard");
         } catch(err) {
             setError(err.response?.data?.message || 'Registration failed');
         } finally {

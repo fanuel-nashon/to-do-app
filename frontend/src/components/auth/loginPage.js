@@ -16,11 +16,12 @@ function LoginForm(){
         setIsSubmitting(true);
         try {
             const response  =   await login(email, password);
-            const token     =   response.data.token;
+            const token     =   response.data.data.token;
             localStorage.setItem('token', token);
             setSuccess(true);
             setEmail('');
             setPassword('');
+            navigate("/dashboard");
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         } finally {
@@ -61,7 +62,7 @@ function LoginForm(){
                 <br></br>
                 {error && <p style={{ color:'red' }}>{error}</p>}
                 {success && <p style={{ color: 'green' }}>Login successful</p>}
-                <button type="submit" disabled={isSubmitting}>
+                <button type="submit" disabled={setIsSubmitting}>
                     {isSubmitting ? 'Logging ...' : 'Login'}
                 </button>
             </form>

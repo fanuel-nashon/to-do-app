@@ -1,14 +1,17 @@
 import React from "react";
 
-function welcomePage(){
+function WelcomePage(){
     return(
         <>
-            <button>
+            <button onClick={()=>navigate("/login")} >
                 Login
             </button>
-            <button>
+            <button onClick={()=>navigate("/register")}>
                 Register
             </button>
         </>
-    )
+    );
 }
+
+
+export default WelcomePage;
