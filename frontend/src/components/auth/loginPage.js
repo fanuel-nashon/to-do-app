@@ -24,7 +24,7 @@ function LoginForm(){
             setSuccess(true);
             setEmail('');
             setPassword('');
-            navigate("/dashboard");
+            // navigate("/dashboard");
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed');
         } finally {

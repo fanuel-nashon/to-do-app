@@ -26,7 +26,7 @@ function RegisterForm(){
             setName('');
             setEmail('');
             setPassword('');
-            navigate("/dashboard");
+            // navigate("/dashboard");
         } catch(err) {
             setError(err.response?.data?.message || 'Registration failed');
         } finally {
