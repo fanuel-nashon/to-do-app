@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { login } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm(){
 
@@ -62,7 +63,7 @@ function LoginForm(){
                 <br></br>
                 {error && <p style={{ color:'red' }}>{error}</p>}
                 {success && <p style={{ color: 'green' }}>Login successful</p>}
-                <button type="submit" disabled={setIsSubmitting}>
+                <button type="submit" disabled={submitting}>
                     {isSubmitting ? 'Logging ...' : 'Login'}
                 </button>
             </form>
