@@ -29,7 +29,7 @@ const authController = {
       const user = await User.create(name, email, hashedPassword);
 
       const token = jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, name:user.name, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRES_IN }
       );
@@ -72,7 +72,7 @@ const authController = {
       }
 
       const token = jwt.sign(
-        { id: user.id, email: user.email },
+        { id: user.id, name:user.name, email: user.email },
         process.env.JWT_SECRET,
         { expiresIn: process.env.JWT_EXPIRES_IN }
       );
