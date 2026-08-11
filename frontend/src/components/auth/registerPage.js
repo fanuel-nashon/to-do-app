@@ -36,54 +36,69 @@ function RegisterForm(){
 
     return (
         <>
-            <form   id="registerForm"
+            <div className="container">
+                <div className="d-flex justify-content-center align-items-center vh-100">
+                    <form   id="registerForm"
                     onSubmit={handleSubmit}
-            >
-                <label htmlFor="name">Name</label>
-                <input 
-                    type="text" 
-                    name="name" 
-                    id="name" 
-                    placeholder="enter your name" 
-                    value={name}
-                    onChange={(e)=>
-                        setName(e.target.value)
-                    }
-                    required 
-                />
-                <br /><br />
-                <label htmlFor="email">Email</label>
-                <input 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    placeholder="enter your email"
-                    value={email}
-                    onChange={(e)=>
-                        setEmail(e.target.value)
-                    } 
-                    required 
-                />
-                <br /><br />
-                <label htmlFor="password">Password</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="enter your name"
-                    value={password}
-                    onChange={(e)=>
-                        setPassword(e.target.value)
-                    } 
-                    required 
-                />
-                <br /><br />
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>Registerd successfully!</p>}
-                <button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? 'Registering...' : 'Register'}
-                </button>
-            </form>
+                    className="shadow-lg p-4 rounded"
+                    style={{ width: '400px', backgroundColor: '#f8f9fa' }}
+                    >
+                        <div className="mb-3">
+                            <label className="form-label" htmlFor="name">Name</label>
+                            <input 
+                                type="text"
+                                className="form-control" 
+                                name="name" 
+                                id="name" 
+                                placeholder="Enter your name" 
+                                value={name}
+                                onChange={(e)=>
+                                    setName(e.target.value)
+                                }
+                                required 
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label" htmlFor="email">Email</label>
+                            <input 
+                                type="email" 
+                                className="form-control"    
+                                name="email" 
+                                id="email" 
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e)=>
+                                    setEmail(e.target.value)
+                                } 
+                                required 
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label" htmlFor="password">Password</label>
+                            <input 
+                                type="password" 
+                                className="form-control"
+                                name="password" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                value={password}
+                                onChange={(e)=>
+                                    setPassword(e.target.value)
+                                } 
+                                required
+                            /> 
+                        </div>
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
+                        {success && <p style={{ color: 'green' }}>Registerd successfully!</p>}
+                        <button type="submit" disabled={isSubmitting}className="btn btn-primary mb-2">
+                            {isSubmitting ? 'Registering...' : 'Register'}
+                        </button>
+                        <p>Already have an account? <a href="/login">Login</a></p>
+                    </form>
+                </div>
+            </div>
+            
+            <p>Already have an account? <a href="/login">Login</a></p>
         </>
     );
 }
