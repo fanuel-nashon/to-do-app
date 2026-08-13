@@ -13,3 +13,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     due_date        DATE NOT NULL,
     completion_date DATE NULL
 );
+
+ALTER TABLE users 
+    ADD COLUMN IF NOT EXISTS reset_token VARCHAR(255),
+    ADD COLUMN IF NOT EXISTS reset_token_expires TIMESTAMP;

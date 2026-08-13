@@ -1,6 +1,9 @@
 const jwt  = require('jsonwebtoken');
 const User = require('../models/user');
 const { hashPassword, verifyPassword } = require('../services/hash');
+const { generateResetToken, hashToken } = require('../services/resetToken');
+const { sendPasswordResetEmail } = require('../services/email');
+const { validatePasswordStrength } = require('../services/passwordValidator');
 
 const authController = {
 
@@ -12,6 +15,14 @@ const authController = {
         return res.status(422).json({
           success: false,
           message: 'Name, email and password are required'
+        });
+      }
+
+      const passwordErrors = validatePasswordStrength(password);
+      if(passwordErrors.length > 0) {
+        return res.status(422).json({
+          success: false,
+          message: `Password must contain ${passwordErrors.join(', ')}`
         });
       }
 
@@ -83,6 +94,83 @@ const authController = {
 
     } catch (err) {
       res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  async forgotPassword(req, res){
+    try {
+      const email = req.body.email;
+      if(!email){
+        return res.status(422).json({
+          success: false,
+          message: 'Email is required'
+        });
+      }
+      const user = await User.findByEmail(email);
+      if(!user){
+        return res.status(404).json({
+          success: false,
+          message: 'No account found with this email'
+        });
+      }
+
+      const { rawToken, hashedToken, expires } = generateResetToken();
+      await User.setResetToken(email, hashedToken, expires);
+
+      const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${rawToken}`;
+      await sendPasswordResetEmail(email, resetUrl);
+
+      res.json({
+        success: true,
+        message: 'Password reset email sent'
+      });
+      
+    } catch (err) {
+      res.status(500).json({ success: false, message: err.message });
+    }
+  },
+
+  async resetPassword(req, res){
+    try {
+      const { token } = req.params;
+      const { password } = req.body;
+
+      if(!password){
+        return res.status(422).json({
+          success: false,
+          message: 'New password is required'
+        });
+      }
+
+      const hashedToken = hashToken(token);
+      const user = await User.findByResetToken(hashedToken);
+      if(!user) {
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid or expired reset token'
+        });
+      }
+
+      const passwordErrors = validatePasswordStrength(password);
+      if(passwordErrors.length > 0) {
+        return res.status(422).json({
+          success: false,
+          message: `Password must contain ${passwordErrors.join(', ')}`
+        });
+      }
+
+      const hashedPassword = await hashPassword(password);
+      await User.updatePassword(user.id, hashedPassword);
+
+      res.json({
+        success: true,
+        message: 'Password has been reset'
+      });
+    } catch(err){
+      res.status(500).json({
+        success: false,
+        message: err.message
+      });
     }
   },
 
