@@ -1,21 +1,38 @@
 import React, { useState } from "react";
 import { register } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import BrandButton from "../common/BrandButton";
+import { validatePasswordStrength } from "../../utils/passwordValidator";
 
 function RegisterForm(){
 
     const navigate = useNavigate();
 
-    const [name, setName]                   =   useState('');
-    const [email, setEmail]                 =   useState('');
-    const [password, setPassword]           =   useState(''); 
-    const [error, setError]                 =   useState(null);
-    const [success, setSuccess]             =   useState();
-    const [isSubmitting, setIsSubmitting]   =   useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(''); 
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const passwordErrors = validatePasswordStrength(password);
+    const rules = [
+        { label: 'At least 8 characters', met: password.length >= 8 },
+        { label: 'One uppercase letter', met: /[A-Z]/.test(password) },
+        { label: 'One lowercase letter', met: /[a-z]/.test(password) },
+        { label: 'One number', met: /[0-9]/.test(password) },
+        { label: 'One special character', met: /[^A-Za-z0-9]/.test(password) }
+    ];
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
+
+        const passwordErrors = validatePasswordStrength(password);
+        if(passwordErrors.length > 0){
+            setError(`Password must contain ${passwordErrors.join(', ')}`);
+            return;
+        }
+
         setSuccess(false);
         setIsSubmitting(true);
         try{
@@ -87,18 +104,27 @@ function RegisterForm(){
                                 } 
                                 required
                             /> 
+                            {password && (
+                                <ul className="list-unstyled small mt-1">
+                                    {rules.map((rule => (
+                                        <li key={rule.label} style={{ color: rule.met ? 'green' : '#999' }}>
+                                            {rule.met ? '✓' : 'o'} {rule.label}
+                                        </li>
+                                    )))}
+                                </ul>
+                            )}
                         </div>
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                         {success && <p style={{ color: 'green' }}>Registerd successfully!</p>}
-                        <button type="submit" disabled={isSubmitting}className="btn btn-primary mb-2">
+                        <BrandButton type="submit" disabled={isSubmitting}className="btn btn-primary mb-2">
                             {isSubmitting ? 'Registering...' : 'Register'}
-                        </button>
-                        <p>Already have an account? <a href="/login">Login</a></p>
+                        </BrandButton>
+                        <p>Already have an account? <a href="/">Login</a></p>
                     </form>
                 </div>
             </div>
             
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <a href="/">Login</a></p>
         </>
     );
 }
