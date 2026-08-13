@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../services/api';
 import BrandButton from '../common/BrandButton'; 
 
-function resetPasswordForm() {
+function ResetPasswordForm() {
     const { token } = useParams();
     const navigate = useNavigate();
     const [password, setPassword] = useState('');

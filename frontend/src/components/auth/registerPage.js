@@ -124,7 +124,6 @@ function RegisterForm(){
                 </div>
             </div>
             
-            <p>Already have an account? <a href="/">Login</a></p>
         </>
     );
 }
