@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { register } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import BrandButton from "../common/BrandButton";
+import PasswordInput from "../common/PasswordInput";
 import { validatePasswordStrength } from "../../utils/passwordValidator";
 
 function RegisterForm(){
@@ -92,18 +93,13 @@ function RegisterForm(){
                         </div>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="password">Password</label>
-                            <input 
-                                type="password" 
-                                className="form-control"
-                                name="password" 
-                                id="password" 
-                                placeholder="Enter your password"
+                            <PasswordInput
+                                id="password"
                                 value={password}
-                                onChange={(e)=>
-                                    setPassword(e.target.value)
-                                } 
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
                                 required
-                            /> 
+                            />
                             {password && (
                                 <ul className="list-unstyled small mt-1">
                                     {rules.map((rule => (

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { login } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import BrandButton from "../common/BrandButton";
+import PasswordInput from "../common/PasswordInput";
 
 function LoginForm(){
 
@@ -72,16 +73,12 @@ function LoginForm(){
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label" style={labelStyle} >Password</label>
-                        <input 
-                            type="password"
-                            className={inputClasses}
-                            name="password"
+                        <PasswordInput
                             id="password"
-                            placeholder="Enter your password"
                             value={password}
-                            onChange={(e)=>
-                                setPassword(e.target.value)
-                            }
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            className={inputClasses}
                             required
                         />
                     </div>

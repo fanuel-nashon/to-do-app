@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../services/api';
-import BrandButton from '../common/BrandButton'; 
+import BrandButton from '../common/BrandButton';
+import PasswordInput from '../common/PasswordInput';
 
 function ResetPasswordForm() {
     const { token } = useParams();
@@ -36,13 +37,21 @@ function ResetPasswordForm() {
                 <form className="shadow-lg p-4 rounded" style={{ width: '400px' }} onSubmit={handleReset}>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">New Password</label>
-                        <input type="password" className="form-control" id="password"
-                            value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        <PasswordInput
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" id="confirmPassword"
-                            value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+                        <PasswordInput
+                            id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     {error && <p style={{ color: 'red' }}>{error}</p>}
                     <BrandButton type="submit" disabled={isSubmitting} className="btn mb-2">
